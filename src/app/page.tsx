@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useMemo, useState } from 'react'
-import { isAddress } from 'viem'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { isAddress, parseEther } from 'viem'
 import { useContractRead, useContractWrite } from 'wagmi'
 import { BN } from 'bn.js'
 
@@ -10,9 +10,11 @@ import { numeric } from '@/helpers/utils'
 import { usePushMessage } from '@/components/message/store'
 
 function Apply({
+  tokenAddress,
   disabled = false,
   loading = false,
 }: {
+  tokenAddress: string
   disabled?: boolean
   loading?: boolean
 }) {
@@ -22,11 +24,19 @@ function Apply({
     functionName: 'apply',
   })
 
+  const onApply = useCallback(() => {
+    if (!isAddress(tokenAddress)) return
+    return write({
+      args: [tokenAddress],
+      value: parseEther('10'),
+    })
+  }, [tokenAddress, write])
+
   return (
     <button
       className="btn btn-primary btn-block"
-      disabled={disabled || loading}
-      onClick={() => write()}
+      disabled={disabled || loading || !isAddress(tokenAddress)}
+      onClick={onApply}
     >
       {loading && <span className="divider divider-spinner divider-sm" />}
       Apply
@@ -35,9 +45,11 @@ function Apply({
 }
 
 function Charge({
+  tokenAddress,
   disabled = false,
   loading = false,
 }: {
+  tokenAddress: string
   disabled?: boolean
   loading?: boolean
 }) {
@@ -47,11 +59,19 @@ function Charge({
     functionName: 'apply',
   })
 
+  const onCharge = useCallback(() => {
+    if (!isAddress(tokenAddress)) return
+    return write({
+      args: [tokenAddress],
+      value: parseEther('10'),
+    })
+  }, [tokenAddress, write])
+
   return (
     <button
       className="btn btn-primary btn-block"
-      disabled={disabled || loading}
-      onClick={() => write()}
+      disabled={disabled || loading || !isAddress(tokenAddress)}
+      onClick={onCharge}
     >
       {loading && <span className="divider divider-spinner divider-sm" />}Top Up
     </button>
@@ -82,8 +102,9 @@ export default function App() {
   )
 
   useEffect(() => {
-    if (error) pushMessage('alert-error', error.message)
-  }, [error, pushMessage])
+    if (error && isAddress(tokenAddress))
+      pushMessage('alert-error', error.message)
+  }, [error, tokenAddress, pushMessage])
 
   return (
     <div className="flex flex-row justify-center">
@@ -106,13 +127,15 @@ export default function App() {
         <div className="col-span-full flex flex-row justify-center">
           {initialized ? (
             <Charge
+              tokenAddress={tokenAddress}
               loading={isLoading}
-              disabled={!isAddress(tokenAddress) || !data}
+              disabled={typeof data === 'undefined'}
             />
           ) : (
             <Apply
+              tokenAddress={tokenAddress}
               loading={isLoading}
-              disabled={!isAddress(tokenAddress) || !data}
+              disabled={typeof data === 'undefined'}
             />
           )}
         </div>
