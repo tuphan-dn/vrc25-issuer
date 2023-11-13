@@ -2,26 +2,40 @@
   "name": "vrc25-issuer",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Tu Phan",
+    "email": "tuphan@descartes.network"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --names DEV,LINT -c cyan,yellow 'yarn dev:watch' 'yarn lint:watch'",
+    "dev:watch": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:watch": "nodemon --watch src --ext ts,tsx --exec 'next lint' --signal SIGTERM"
   },
   "dependencies": {
+    "lucide-react": "^0.292.0",
+    "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.2"
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
     "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "concurrently": "^8.2.2",
+    "daisyui": "^4.0.3",
     "eslint": "^8",
-    "eslint-config-next": "14.0.2"
+    "eslint-config-next": "14.0.2",
+    "eslint-plugin-react": "^7.33.2",
+    "nodemon": "^3.0.1",
+    "postcss": "^8",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }
