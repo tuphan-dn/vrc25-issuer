@@ -3,6 +3,8 @@ import { ReactNode, useEffect } from 'react'
 import { create } from 'zustand'
 import { persist, createJSONStorage, devtools } from 'zustand/middleware'
 
+import Message from '@/components/message'
+
 import { env } from '@/configs/env'
 
 import '@/static/styles/global.scss'
@@ -55,5 +57,10 @@ export default function UiProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <Message />
+    </>
+  )
 }

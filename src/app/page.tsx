@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { isAddress } from 'viem'
 import { useContractRead, useContractWrite } from 'wagmi'
 import { BN } from 'bn.js'
@@ -7,6 +7,7 @@ import { BN } from 'bn.js'
 import walletConfig from '@/configs/wallet.config'
 import { undecimalize } from '@/helpers/decimals'
 import { numeric } from '@/helpers/utils'
+import { usePushMessage } from '@/components/message/store'
 
 export function Apply({
   disabled = false,
@@ -15,7 +16,7 @@ export function Apply({
   disabled?: boolean
   loading?: boolean
 }) {
-  const apply = useContractWrite({
+  const { write } = useContractWrite({
     address: walletConfig.vrc25Issuer.address,
     abi: walletConfig.vrc25Issuer.abi,
     functionName: 'apply',
@@ -25,6 +26,7 @@ export function Apply({
     <button
       className="btn btn-primary btn-block"
       disabled={disabled || loading}
+      onClick={() => write()}
     >
       {loading && <span className="divider divider-spinner divider-sm" />}
       Apply
@@ -39,7 +41,7 @@ export function Charge({
   disabled?: boolean
   loading?: boolean
 }) {
-  const charge = useContractWrite({
+  const { write } = useContractWrite({
     address: walletConfig.vrc25Issuer.address,
     abi: walletConfig.vrc25Issuer.abi,
     functionName: 'apply',
@@ -49,14 +51,16 @@ export function Charge({
     <button
       className="btn btn-primary btn-block"
       disabled={disabled || loading}
+      onClick={() => write()}
     >
-      {loading && <span className="divider divider-spinner divider-sm" />}Charge
+      {loading && <span className="divider divider-spinner divider-sm" />}Top Up
     </button>
   )
 }
 
 export default function App() {
   const [tokenAddress, setTokenAddress] = useState('')
+  const pushMessage = usePushMessage()
 
   const { data, isLoading, error } = useContractRead<
     typeof walletConfig.vrc25Issuer.abi,
@@ -77,6 +81,10 @@ export default function App() {
     [data],
   )
 
+  useEffect(() => {
+    if (error) pushMessage('alert-error', error.message)
+  }, [error, pushMessage])
+
   return (
     <div className="flex flex-row justify-center">
       <div className="max-w-[512px] w-full card border-base-300 rounded-box bg-base-200 p-4 grid grid-cols-12 gap-4">
@@ -92,7 +100,7 @@ export default function App() {
             <p className="text-sm font-bold opacity-60 flex-auto">
               Current Balance
             </p>
-            <h4>{numeric(balance).format('0,0.[0000]')}</h4>
+            <h4>{numeric(balance).format('0,0.[0000]')} VIC</h4>
           </div>
         </div>
         <div className="col-span-full flex flex-row justify-center">
