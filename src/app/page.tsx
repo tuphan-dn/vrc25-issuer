@@ -9,7 +9,7 @@ import { undecimalize } from '@/helpers/decimals'
 import { numeric } from '@/helpers/utils'
 import { usePushMessage } from '@/components/message/store'
 
-export function Apply({
+function Apply({
   disabled = false,
   loading = false,
 }: {
@@ -34,7 +34,7 @@ export function Apply({
   )
 }
 
-export function Charge({
+function Charge({
   disabled = false,
   loading = false,
 }: {
