@@ -1,6 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
-import '@/static/styles/global.scss'
+import Header from './header'
+import Footer from './footer'
+
+import UiProvider from '@/providers/ui.provider'
+
+import WalletProvider from '@/providers/wallet.provider'
 
 const title = 'Viction | #BuildOnViction'
 const description =
@@ -16,11 +21,12 @@ export const metadata: Metadata = {
     description,
     images: [thumbnail],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -32,8 +38,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body className="w-[100dvw] min-h-[100dvh] flex flex-row">
-        {children}
+      <body className="w-full">
+        <UiProvider>
+          <WalletProvider>
+            <header className="sticky top-0 w-full">
+              <Header />
+            </header>
+            <main className="w-full px-4 py-8">{children}</main>
+            <footer className="w-full mt-8">
+              <Footer />
+            </footer>
+          </WalletProvider>
+        </UiProvider>
       </body>
     </html>
   )

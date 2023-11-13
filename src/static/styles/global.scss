@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '@rainbow-me/rainbowkit/styles.css';
 @import './scrollbar.scss';
+@import './typography.scss';
 
 html {
   font-family: 'Satoshi', sans-serif;
