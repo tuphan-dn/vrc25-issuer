@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useEffect } from 'react'
+import { Fragment, ReactNode, useEffect } from 'react'
 import { create } from 'zustand'
 import { persist, createJSONStorage, devtools } from 'zustand/middleware'
 
@@ -58,9 +58,9 @@ export default function UiProvider({ children }: { children: ReactNode }) {
   }, [theme])
 
   return (
-    <>
+    <Fragment>
       {children}
       <Message />
-    </>
+    </Fragment>
   )
 }

@@ -4,8 +4,8 @@ import Header from './header'
 import Footer from './footer'
 
 import UiProvider from '@/providers/ui.provider'
-
 import WalletProvider from '@/providers/wallet.provider'
+import IssuerProvider from '@/providers/issuer.provider'
 
 const title = 'Viction | #BuildOnViction'
 const description =
@@ -41,15 +41,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="w-full">
         <UiProvider>
           <WalletProvider>
-            <div className="w-full min-h-[100dvh] flex flex-col justify-between">
-              <header className="sticky top-0">
-                <Header />
-              </header>
-              <main className="px-4">{children}</main>
-              <footer className="mt-8">
-                <Footer />
-              </footer>
-            </div>
+            <IssuerProvider>
+              <div className="w-full min-h-[100dvh] flex flex-col justify-between">
+                <header className="sticky top-0">
+                  <Header />
+                </header>
+                <main className="px-4">{children}</main>
+                <footer className="mt-8">
+                  <Footer />
+                </footer>
+              </div>
+            </IssuerProvider>
           </WalletProvider>
         </UiProvider>
       </body>

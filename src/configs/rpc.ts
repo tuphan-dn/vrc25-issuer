@@ -34,4 +34,5 @@ export const testnet: Chain = {
   blockExplorers: {
     default: { name: 'Tomoscan', url: 'https://testnet.tomoscan.io' },
   },
+  testnet: true,
 }
