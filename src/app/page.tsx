@@ -82,7 +82,7 @@ export default function App() {
                 Sponsor Balance
               </p>
               <h4>
-                {numeric(formatEther(sponsor || 0n)).format('0,0.[0000]')} VIC
+                {numeric(formatEther(sponsor || 0n)).format('0,0.[000000]')} VIC
               </h4>
             </div>
           </div>
