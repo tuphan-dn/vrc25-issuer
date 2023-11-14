@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <WalletProvider>
             <IssuerProvider>
               <div className="w-full min-h-[100dvh] flex flex-col justify-between">
-                <header className="sticky top-0">
+                <header className="sticky top-0 z-10">
                   <Header />
                 </header>
                 <main className="px-4">{children}</main>
