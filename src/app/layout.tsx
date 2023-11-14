@@ -41,13 +41,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body className="w-full">
         <UiProvider>
           <WalletProvider>
-            <header className="sticky top-0 w-full">
-              <Header />
-            </header>
-            <main className="w-full px-4 py-8">{children}</main>
-            <footer className="w-full mt-8">
-              <Footer />
-            </footer>
+            <div className="w-full min-h-[100dvh] flex flex-col justify-between">
+              <header className="sticky top-0">
+                <Header />
+              </header>
+              <main className="px-4">{children}</main>
+              <footer className="mt-8">
+                <Footer />
+              </footer>
+            </div>
           </WalletProvider>
         </UiProvider>
       </body>

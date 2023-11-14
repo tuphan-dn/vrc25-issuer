@@ -20,8 +20,8 @@ export const mainnet: Chain = {
 
 export const testnet: Chain = {
   id: 89,
-  name: 'Vic Testnet',
-  network: 'viction',
+  name: 'Testnet',
+  network: 'viction-testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'Viction',
