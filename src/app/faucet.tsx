@@ -17,6 +17,7 @@ export default function Faucet() {
         target="_blank"
         rel="noreferrer"
       >
+        <h5 className="text-slate-100">FAUCET</h5>
         <p className="col-span-full text-slate-100 font-semibold">
           You are on <span className="text-secondary">Viction Testnet</span>.
           You can click here to request free VIC from the Viction faucet for
