@@ -20,8 +20,7 @@ export default function Faucet() {
         <h5 className="text-slate-100">FAUCET</h5>
         <p className="col-span-full text-slate-100 font-semibold">
           You are on <span className="text-secondary">Viction Testnet</span>.
-          You can click here to request free VIC from the Viction faucet for
-          testing.
+          You can click here to request free VIC for testing.
         </p>
         <div className="col-span-12 flex flex-row gap-2 justify-end group-hover:translate-x-1 transition-all">
           <ChevronRight className="h-5 w-5 text-slate-100" />
