@@ -20,6 +20,7 @@ import { useTheme } from './ui.provider'
 import walletConfig from '@/configs/wallet.config'
 import { mainnet, testnet } from '@/configs/rpc'
 
+// Register your own project id here: https://cloud.walletconnect.com/app
 const projectId = walletConfig.walletConnectId
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
